@@ -37,15 +37,15 @@ processing any customer.**
 The user types:
 
 ```
-/asteron-agent [--journey warm_end_conversion|service_reactivation|all] [--customer CUSTOMER_ID]
+/asteron_agent [--journey warm_end_conversion|service_reactivation|all] [--customer CUSTOMER_ID]
 ```
 
 Examples:
 
 ```
-/asteron-agent                                  → run all customers, all journeys
-/asteron-agent --journey warm_end_conversion    → run only the test-drive conversion journey
-/asteron-agent --customer C003                  → run a single customer (e.g. the hardship case)
+/asteron_agent                                  → run all customers, all journeys
+/asteron_agent --journey warm_end_conversion    → run only the test-drive conversion journey
+/asteron_agent --customer C003                  → run a single customer (e.g. the hardship case)
 ```
 
 Default (no arguments): run every record in `knowledge_base/sample_customers.json` across both
@@ -134,7 +134,7 @@ record**, journey-agnostically (the journey only changes entry criteria, timing 
 
 | File | Responsibility |
 |------|----------------|
-| `CLAUDE.md` | This file — defines `/asteron-agent` and the seven-step pipeline. |
+| `CLAUDE.md` | This file — defines `/asteron_agent` and the seven-step pipeline. |
 | `SKILLS.md` | Decision contract: the seven-step loop, Detect discipline, Gate boundary logic, ledger schema, extensibility notes. |
 | `knowledge_base/case_facts.json` | Ground-truth Asteron numbers from the case brief. |
 | `knowledge_base/customer_signal_taxonomy.json` | The 7 signal classifications, their evidence patterns, and per-signal action rules. |
