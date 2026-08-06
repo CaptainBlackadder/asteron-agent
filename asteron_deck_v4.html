@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Asteron Motors · Accenture B-School Challenge S10 · v4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2A0A45; --primary:#A100FF; --deep:#6A00B8; --accent:#C98CFF;
+  --alert:#C00000; --body:#3A3838; --cap:#767070;
+  --tint:#F4ECFC; --line:#D9D2E4;
+  --f12:16px; --f14:18.7px; --f16:21.3px; --f18:24px; --f26:34.7px; --f30:40px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#14101A;font-family:'Inter',Calibri,Arial,sans-serif;color:var(--body);
+     display:flex;flex-direction:column;align-items:center;padding:20px 0 10px}
+.slide{width:1280px;height:720px;max-width:97vw;background:#fff;position:relative;overflow:hidden;
+       display:none;flex-direction:column;border-radius:3px}
+.slide.active{display:flex}
+.bandA{height:58px;display:flex;align-items:center;gap:10px;padding:0 12px;flex:none}
+.stripe{flex:1;display:flex;flex-direction:column;gap:4px}
+.stripe i{display:block;height:5px;background:var(--ink)}
+.stripe i:nth-child(2){margin-right:53px}
+.stripe.r i:nth-child(2){margin-right:0;margin-left:53px}
+.bandA h1{font-size:var(--f30);font-weight:700;color:#000;text-align:center;line-height:1.05;white-space:nowrap}
+.bandB{height:34px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;
+       font-size:var(--f16);font-weight:700;text-transform:uppercase;flex:none;text-align:center;padding:0 10px}
+.hr{height:3px;background:var(--ink);flex:none}
+.bandC{height:100px;display:flex;align-items:stretch;flex:none}
+.tab{width:230px;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;
+     padding:0 18px;font-size:var(--f12);font-weight:700;text-transform:uppercase;line-height:1.2;
+     clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+.stats{flex:1;display:flex}
+.stat{flex:1;text-align:center;padding-top:6px}
+.stat b{display:block;font-size:var(--f26);font-weight:800;color:var(--primary);line-height:1.05}
+.stat span{display:block;font-size:var(--f12);color:var(--body);line-height:1.25;margin-top:3px;padding:0 6px}
+.src{font-size:var(--f12);font-style:italic;color:#D8C6EC;padding-top:4px}
+.src b{font-style:normal;text-transform:none}
+.chain{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 12px;flex-wrap:wrap}
+.chain b{border:2px solid var(--ink);border-radius:14px;padding:3px 9px;font-size:var(--f12);
+         font-weight:600;color:var(--ink);background:#fff}
+.chain i{font-style:normal;font-weight:800;color:var(--primary);font-size:var(--f14)}
+.chain.fwd b{border-color:var(--primary);color:var(--deep);background:var(--tint)}
+.body{flex:1;display:flex;min-height:0;padding:8px 12px 6px}
+.col{flex:1;display:flex;flex-direction:column;gap:7px;padding:0 11px;min-width:0}
+.col+.col{border-left:2px solid var(--line)}
+.sh{display:flex;align-items:center;gap:9px;flex:none}
+.sh .circ{width:32px;height:32px;border-radius:50%;background:var(--ink);display:flex;align-items:center;
+          justify-content:center;flex:none}
+.sh .circ span{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;
+               font-size:var(--f18);font-weight:800;display:flex;align-items:center;justify-content:center}
+.sh h3{font-size:var(--f14);font-weight:700;color:var(--ink);line-height:1.15}
+p,li,td,th{font-size:var(--f12);line-height:1.31}
+ul{list-style:none}
+ul li{position:relative;padding-left:14px;margin-bottom:5px}
+ul li::before{content:"";position:absolute;left:2px;top:7px;width:5px;height:5px;background:var(--primary);border-radius:50%}
+.k{font-weight:700;color:var(--primary)}
+.k2{font-weight:700;color:var(--body)}
+.callout{background:var(--primary);border:3px solid var(--ink);color:#fff;font-weight:700;font-size:var(--f12);
+         text-align:center;padding:7px 9px;line-height:1.3;flex:none}
+.alert{border:3px solid var(--alert);background:#fff;padding:7px 9px;font-size:var(--f12);line-height:1.3;flex:none}
+.banner{background:var(--ink);color:#fff;text-align:center;padding:7px 9px;font-size:var(--f12);line-height:1.3;flex:none}
+.banner .k{color:var(--accent)}
+.chip{display:inline-block;background:var(--deep);color:#fff;font-size:var(--f12);font-weight:700;
+      text-transform:uppercase;padding:2px 9px;border-radius:2px}
+.cap{font-size:var(--f12);font-style:italic;color:var(--cap);text-align:center;padding-top:4px}
+.cap b{font-style:normal}
+table{border-collapse:collapse;width:100%}
+th{background:var(--ink);color:#fff;padding:4px 7px;font-weight:700;text-align:left}
+td{padding:4px 7px;border-bottom:1px solid var(--line)}
+tr:nth-child(even) td{background:#FAF7FD}
+.n{text-align:right;font-variant-numeric:tabular-nums}
+.pill{background:var(--tint);border:1px solid var(--line);padding:6px 8px;font-size:var(--f12);line-height:1.28}
+.foot{height:22px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;
+      padding:0 14px;font-size:var(--f12);flex:none}
+.nav{display:flex;gap:12px;align-items:center;margin-top:12px;color:#B5A6C9;font-size:14px}
+.nav button{background:var(--primary);border:none;color:#fff;font-size:16px;font-weight:800;width:36px;height:36px;
+            border-radius:50%;cursor:pointer}
+.nav button:focus-visible{outline:3px solid #fff}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 1 · THESIS ═══════════ -->
+<section class="slide active">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>AI IS PARITY. FIXING THE DEALER'S P&amp;L IS THE WEDGE.</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">A three-year AI-enabled customer-growth strategy across marketing, dealer sales, customer care and aftersales</div>
+  <div class="hr"></div>
+  <div class="bandC">
+    <div class="tab">Asteron today<div class="src"><b>Source:</b> case exhibits 1b–1c</div></div>
+    <div class="stats">
+      <div class="stat"><b>11.2%</b><span>Share, No. 4 — down from 13.4%</span></div>
+      <div class="stat"><b>1.6%</b><span>Dealer margin, halved in two years</span></div>
+      <div class="stat"><b>68 / 78</b><span>Ownership experience vs competitor</span></div>
+      <div class="stat"><b>66%</b><span>First-contact resolution on 5.8M cases</span></div>
+      <div class="stat"><b>4 of 32</b><span>AI initiatives with verified benefit</span></div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Why AI alone will not win</h3></div>
+      <p><span class="k">Four of five benchmarked rivals</span> already run AI across the customer lifecycle. Deploying it buys back the ten-point experience gap — it does not create advantage.</p>
+      <div class="alert">Product quality already ranks top three. What competitors cannot copy quickly is a <span class="k">dealer network restored to health</span> — and service and parts carry <span class="k2">52% of dealer profit</span> while only 46% of owners stay past year three.</div>
+      <div class="callout">AI is table stakes. Dealer economics is the wedge.</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>Three choices</h3></div>
+      <p><span class="chip">Concentrate</span> &nbsp;The 20 largest cities, SUV and EV, digital-origin demand — about 38% of volume carrying nearly all the share loss.</p>
+      <p><span class="chip">Sequence</span> &nbsp;Year 1 runs three tracks at once: a <span class="k">unit mechanism</span> (metro funnel and SLA), a <span class="k">margin mechanism</span> (aftersales), and foundations.</p>
+      <p><span class="chip">Gate</span> &nbsp;No rupee moves without a named owner, a baseline and an adoption target — the three tests <span class="k2">43%, 36% and 34%</span> of today's portfolio fails.</p>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>What it returns</h3></div>
+      <table>
+        <tr><th>By Year 3</th><th class="n">Target</th></tr>
+        <tr><td>Domestic share (from 11.2%)</td><td class="n"><span class="k">13.0%</span></td></tr>
+        <tr><td>Dealer operating margin — hard constraint</td><td class="n"><span class="k">&gt;2.5%</span></td></tr>
+        <tr><td>Contribution, Year 3 run-rate</td><td class="n">₹940 cr / yr</td></tr>
+        <tr><td>Contribution, cumulative Yrs 1–3</td><td class="n"><span class="k">₹1,680 cr</span></td></tr>
+        <tr><td>Against programme spend</td><td class="n">₹750 cr = <b>2.2×</b></td></tr>
+      </table>
+      <div class="banner">Modelled on a <span class="k">flat market</span> and excluding parts and accessories margin — deliberate conservatism, sensitivity in the annexure.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Team [Name] · IIM Calcutta · Industry &amp; Enterprise Track · Agent demo: [paste link]</span><span>1 / 7</span></div>
+</section>
+
+<!-- ═══════════ 2 · DIAGNOSIS ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>THREE LEAKS, ONE LOOP: UNITS, CARE AND THE BUDGET ITSELF</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Share loss is the symptom — the dealer profit loop is the disease</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:88px">
+    <div class="tab" style="width:200px">The reinforcing loop</div>
+    <div class="chain">
+      <b>Service retention 46%</b><i>→</i><b>52% of dealer profit erodes</b><i>→</i><b>Margin 2.8% → 1.6%</b><i>→</i>
+      <b>Marketing cost per sale +31%</b><i>→</i><b>Experience 68 vs 78</b><i>→</i><b>NPS 24 vs 39</b><i>→</i><b>Share 13.4% → 11.2%</b><i>↺</i>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col" style="flex:1.05">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Where the units are lost</h3></div>
+      <svg viewBox="0 0 330 178" width="100%" height="178" role="img" aria-label="Funnel volumes by stage">
+        <g font-family="Inter,Calibri,sans-serif" font-size="16" fill="#3A3838">
+          <text x="0" y="17">Leads</text><rect x="98" y="4" width="175" height="16" fill="#2A0A45"/><text x="279" y="17">24.0L</text>
+          <text x="0" y="42">Qualified</text><rect x="98" y="29" width="136" height="16" fill="#6A00B8"/><text x="279" y="42">18.7L</text>
+          <text x="0" y="67">Contacted</text><rect x="98" y="54" width="120" height="16" fill="#6A00B8"/><text x="279" y="67">16.5L</text>
+          <text x="0" y="92">Showroom</text><rect x="98" y="79" width="70" height="16" fill="#A100FF"/><text x="279" y="92">9.6L</text>
+          <text x="0" y="117">Test drive</text><rect x="98" y="104" width="47" height="16" fill="#A100FF"/><text x="279" y="117">6.5L</text>
+          <text x="0" y="142" fill="#C00000" font-weight="700">Booking</text><rect x="98" y="129" width="18" height="16" fill="#C00000"/><text x="279" y="142" fill="#C00000" font-weight="700">2.5L</text>
+          <text x="0" y="167">Retail</text><rect x="98" y="154" width="16" height="16" fill="#C98CFF"/><text x="279" y="167">2.17L</text>
+        </g>
+      </svg>
+      <div class="cap" style="margin-top:-2px"><b>2.4M leads</b> reconcile to 2,17,266 sales — 9.05% end to end</div>
+      <p><span class="k">62% of test-drivers never book</span> — 4.0 lakh warm prospects a year. The contacted-to-showroom stage loses more in absolute terms (6.9 lakh), but test-drivers are the <span class="k2">most expensive prospects Asteron owns</span>, acquired twice over while marketing cost per sale rose 31%.</p>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>The pool nobody is counting</h3></div>
+      <p>Customer care runs <span class="k">5.8 million interactions a year</span> at 66% first-contact resolution — roughly <span class="k">2 million repeat contacts</span> annually.</p>
+      <p>This is the most likely single driver of <span class="k2">NPS 24 against a benchmark of 39</span>, despite comparable product quality.</p>
+      <div class="alert">It is also the only large pool Asteron <span class="k">owns outright</span> — no dealer boundary to negotiate. Lifting FCR to 80% deflects ~8 lakh repeat contacts and is the <span class="k2">fastest Year 1 win available</span>.</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>Why ₹225 cr disappeared</h3></div>
+      <table>
+        <tr><th>Portfolio test</th><th class="n">Pass rate</th></tr>
+        <tr><td>Named business owner</td><td class="n">43%</td></tr>
+        <tr><td>Documented baseline</td><td class="n">36%</td></tr>
+        <tr><td>Weekly user adoption</td><td class="n">34%</td></tr>
+        <tr><td>Verified benefit</td><td class="n"><span class="k">4 of 32</span></td></tr>
+      </table>
+      <p>Thirty-two initiatives across <span class="k">eleven vendors</span> produced four verified wins — about <span class="k">₹56 cr per success</span>. Repeat the mechanism and ₹750 cr buys roughly thirteen more.</p>
+      <div class="banner">The binding constraint is not the budget. It is the <span class="k">use-case-by-use-case funding process</span> that created the portfolio.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Source: case exhibits 1b–1c; team funnel reconciliation (slide 7)</span><span>2 / 7</span></div>
+</section>
+
+<!-- ═══════════ 3 · STRATEGY ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>A THIRD OF THE FIX NEEDS NO AI AT ALL</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Standardise what the customer experiences — free what dealers compete on</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:88px">
+    <div class="tab" style="width:200px">The loop, reversed</div>
+    <div class="chain fwd">
+      <b>Yr 1 · care and SLA fixes + retention agents</b><i>→</i><b>Units and dealer margin both move</b><i>→</i>
+      <b>Yr 2 · warm-end conversion at scale + Vega</b><i>→</i><b>Yr 3 · repeat, referral, EV services</b><i>↺</i>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col" style="flex:1.12">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Four buckets, not three</h3></div>
+      <table>
+        <tr><th>Tier</th><th>Applies to</th><th>Owner</th></tr>
+        <tr><td><b>Fix the process</b></td><td>24-hr contact SLA and dealer scorecard, journey standardisation (34%), record completeness (58%), test-drive outcome capture</td><td>Management</td></tr>
+        <tr><td><b>Automate</b></td><td>Service reminders, care deflection, document prep, status updates</td><td>Workflow</td></tr>
+        <tr><td><b>Augment</b></td><td>Post-test-drive context packs, next-best-offer, service advisories</td><td>Human decides</td></tr>
+        <tr><td><b>Abstain</b></td><td>Price, exchange value, negotiation, complaints, delivery, credit</td><td>Human only</td></tr>
+      </table>
+      <div class="alert">A 16-hour first response and 32% of leads uncontacted in 24 hours are <span class="k">management and incentive failures</span>, not intelligence failures. Naming that is also why <span class="k2">₹250 cr a year is enough</span>.</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>Where to play</h3></div>
+      <p>We fund the <span class="k">top 20 cities, SUV and EV, digital-origin demand</span>. We do not fund network-wide measurement of walk-in and referral volume — that business sits outside the metros, where share is holding.</p>
+      <p><span class="k">Mobile + VIN</span> as a join key lifts common-ID coverage from 38% to roughly 75% in metros within two quarters, so value does not wait on a two-year data programme.</p>
+      <div class="callout">Concentration beats coverage — a budget spread across 340 cities is not a strategy</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>How it reaches 620 dealers</h3></div>
+      <ul>
+        <li><span class="k">Champions and squeezed performers</span> → Wave 1 in the metros; the cash-starved go first because they need it most</li>
+        <li><span class="k">Willing but weak</span> → Wave 2 with hands-on support</li>
+        <li>Most of the <span class="k">27% loss-making outlets are fixable</span> on aftersales mix and cost-to-serve; only a small tail is structurally unviable</li>
+      </ul>
+      <div class="banner">We commit to <span class="k">no net loss of city coverage</span> — in India, reach is share. Consolidation only where two outlets cannibalise one catchment.</div>
+      <p><span class="k2">Vega, in 15 months,</span> is our Year 2 proof point across 420 EV-ready outlets. EVs are 7% of sales today and perhaps 13% by Year 3, so service-revenue erosion is a Year 3+ design question, not a Year 1 risk.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Where-to-play and how-to-win choices; decision rights scored on ambiguity, reversibility and relationship stakes</span><span>3 / 7</span></div>
+</section>
+
+<!-- ═══════════ 4 · AGENT ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>ONE IDENTITY, TWO JOURNEYS — AT THE WARM END, NOT THE FRONT DOOR</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Pre-approved steps executed autonomously — people accountable for every decision that touches a customer</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:100px;padding:7px 12px;gap:5px">
+    <div class="pill" style="flex:1.1"><span class="k">1 Resolve</span><br>Mobile + VIN joins the enquiry, the test drive and the workshop record</div>
+    <div class="pill" style="flex:1.05"><span class="k">2 Detect</span><br>Post-test-drive signal — finance hesitation, exchange query, rival mention, silence</div>
+    <div class="pill" style="flex:1"><span class="k">3 Assemble</span><br>Context pack: history, likely blocker, comparable resolutions</div>
+    <div class="pill" style="flex:1"><span class="k">4 Sequence</span><br>Books the human follow-up inside the golden 48 hours</div>
+    <div class="banner" style="width:42px;display:flex;align-items:center;justify-content:center;padding:0;
+         writing-mode:vertical-rl;font-weight:800">GATE</div>
+    <div class="pill" style="flex:1"><span class="k">5 Consultant</span><br>Owns the conversation, the price, the exchange, the close</div>
+    <div class="pill" style="flex:1"><span class="k">6 Reactivate</span><br>Same agent, service-due journey: advisory, slot, transparency</div>
+    <div class="pill" style="flex:.95"><span class="k">7 Log</span><br>Single-attribution ledger, every action traceable to an owner</div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Why the warm end</h3></div>
+      <p>A 16-hour first response is an <span class="k2">SLA failure before it is an intelligence failure</span> — so the front door moves into the process bucket, with a dashboard and a dealer scorecard.</p>
+      <p>What the warm end needs is <span class="k">discrimination</span>: which of 6.5 lakh test-drivers is finance-constrained, blocked on exchange value, or cross-shopping a named rival — inside the 48 hours where the decision is actually made.</p>
+      <div class="callout">Twice the units of a contact-rate fix, on prospects already paid for twice over</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>What it converts into units</h3></div>
+      <table>
+        <tr><th>Lever</th><th class="n">Now</th><th class="n">Yr 3</th><th class="n">Units</th></tr>
+        <tr><td>Test drive → booking</td><td class="n">38%</td><td class="n">44%</td><td class="n"><span class="k">+34,300</span></td></tr>
+        <tr><td>Showroom visit rate</td><td class="n">58%</td><td class="n">65%</td><td class="n">+26,200</td></tr>
+        <tr><td>Dealer contact rate <i>(process)</i></td><td class="n">88%</td><td class="n">95%</td><td class="n">+17,300</td></tr>
+        <tr><td>Service reactivation</td><td class="n">46%</td><td class="n">64%</td><td class="n">Margin</td></tr>
+        <tr><td>First-contact resolution</td><td class="n">66%</td><td class="n">80%</td><td class="n">NPS</td></tr>
+      </table>
+      <div class="cap"><b>Downstream rates</b> held constant per lever — no compounding claimed</div>
+      <p>The agent's data dependency — knowing <span class="k2">why</span> a test-drive did not convert — is supplied by the outcome-capture process fix. <span class="k">The buckets interlock.</span></p>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>Where it must not go</h3></div>
+      <div class="alert">Price and discount · exchange valuation · negotiation · complaint resolution · delivery commitments · credit decisions · dealer staffing. <span class="k">These are the case's own words on trusted human relationships</span> — quoting the boundary back is how we earn everything else.</div>
+      <ul>
+        <li>A <span class="k">named human owner</span> per journey; no unowned agent in production</li>
+        <li>Every action logged and reconstructable for a customer or a regulator</li>
+        <li>Scoring reviewed for <span class="k">fairness</span> across city tier, segment and dealer</li>
+      </ul>
+      <div class="banner">Demo run 2 shows the agent <span class="k">refusing to act</span> on a hardship signal. Recording: <span class="k">[paste link]</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Agentic AI per the case: plans and carries out pre-approved steps; people remain accountable for customer decisions</span><span>4 / 7</span></div>
+</section>
+
+<!-- ═══════════ 5 · BUDGET ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>₹250 CRORE REALLOCATED, NOT ADDED — AND RELEASED AT GATES</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Year 1 carries a unit mechanism, a margin mechanism and the foundations — all three at once</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:88px">
+    <div class="tab" style="width:190px">Three horizons</div>
+    <div class="chain" style="justify-content:space-around">
+      <b style="padding:6px 12px"><span class="chip">Year 1</span> &nbsp;Metro SLA, care and aftersales &nbsp;·&nbsp; <span class="k">+0.4pp</span></b><i>→</i>
+      <b style="padding:6px 12px"><span class="chip">Year 2</span> &nbsp;Warm-end conversion, Vega &nbsp;·&nbsp; <span class="k">+0.6pp</span></b><i>→</i>
+      <b style="padding:6px 12px"><span class="chip">Year 3</span> &nbsp;Loyalty and referral &nbsp;·&nbsp; <span class="k">+0.8pp</span></b>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col" style="flex:1.15">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Allocation of ₹250 cr a year</h3></div>
+      <table>
+        <tr><th>Investment area</th><th class="n">Yr 1</th><th class="n">Yr 2</th><th class="n">Yr 3</th></tr>
+        <tr><td>Data, identity &amp; process standardisation</td><td class="n">85</td><td class="n">45</td><td class="n">25</td></tr>
+        <tr><td>Agent platform &amp; journeys</td><td class="n">55</td><td class="n">85</td><td class="n">80</td></tr>
+        <tr><td>Customer-care transformation</td><td class="n">25</td><td class="n">20</td><td class="n">15</td></tr>
+        <tr><td>Dealer enablement (Wave 1 ≈ 200 outlets)</td><td class="n">50</td><td class="n">70</td><td class="n">60</td></tr>
+        <tr><td>Vendor consolidation &amp; exit (11 → 4)</td><td class="n">20</td><td class="n">10</td><td class="n">—</td></tr>
+        <tr><td>Value-tracking office</td><td class="n">15</td><td class="n">15</td><td class="n">15</td></tr>
+        <tr><td>Loyalty &amp; EV aftersales build</td><td class="n">—</td><td class="n">5</td><td class="n">55</td></tr>
+        <tr><td><b>Total</b></td><td class="n"><b>250</b></td><td class="n"><b>250</b></td><td class="n"><b>250</b></td></tr>
+      </table>
+      <div class="cap"><b>Drawn from</b> the existing digital budget — stopping failed initiatives frees capacity inside the envelope, it does not add to it</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>Defending the unit economics</h3></div>
+      <ul>
+        <li><span class="k">₹25 lakh per Wave-1 dealer</span> in Year 1 — ₹50 cr across ~200 metro outlets, not spread thinly over 620</li>
+        <li><span class="k">₹15 cr on value tracking</span> is 6% of the budget, set against a mechanism that wasted ~₹197 cr of the last ₹225 cr</li>
+        <li><span class="k">11 vendors to 4</span> platform partners — exit and migration costed, not assumed free</li>
+      </ul>
+      <div class="alert">Year 1's unit story is <span class="k">metro SLA recovery, showroom conversion and early warm-end pilots</span> — roughly 20,000 units. Aftersales rebuilds margin; it does not sell cars inside twelve months.</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>The return, stated properly</h3></div>
+      <table>
+        <tr><th>Basis</th><th class="n">Units</th><th class="n">Contribution</th></tr>
+        <tr><td>Year 3 run-rate (+1.8pp)</td><td class="n">90,800</td><td class="n"><span class="k">₹940 cr / yr</span></td></tr>
+        <tr><td>Cumulative Years 1–3</td><td class="n">1,61,000</td><td class="n"><span class="k">₹1,680 cr</span></td></tr>
+        <tr><td>Programme spend</td><td class="n">—</td><td class="n">₹750 cr</td></tr>
+        <tr><td><b>Cumulative multiple</b></td><td class="n">—</td><td class="n"><b>2.2×</b></td></tr>
+      </table>
+      <div class="banner">Plus a <span class="k">₹940 cr annuity</span> that continues past Year 3 — and this excludes parts and accessories margin and assumes a flat market.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Contribution at ₹1.04 lakh per unit (9% of ₹11.5 lakh realisation); 1pp of share ≈ 50,400 units</span><span>5 / 7</span></div>
+</section>
+
+<!-- ═══════════ 6 · GOVERNANCE ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>REPLACE THE FUNDING PROCESS, NOT JUST THE PROJECTS</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Share is the apex metric — dealer margin above 2.5% is a hard constraint, not an aspiration</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:88px">
+    <div class="tab" style="width:200px">Year 3 destination</div>
+    <div class="stats">
+      <div class="stat"><b>13.0%</b><span>Share, from 11.2%</span></div>
+      <div class="stat"><b>&gt;2.5%</b><span>Dealer margin, from 1.6%</span></div>
+      <div class="stat"><b>80%</b><span>First-contact resolution, from 66%</span></div>
+      <div class="stat"><b>64%</b><span>Service retention, from 46%</span></div>
+      <div class="stat"><b>95%</b><span>Outlets in sustained active use</span></div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col" style="flex:1.3">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Yearly targets against the six outcomes</h3></div>
+      <table>
+        <tr><th>Case outcome</th><th class="n">Base</th><th class="n">Yr 1</th><th class="n">Yr 2</th><th class="n">Yr 3</th></tr>
+        <tr><td>Market recovery — share</td><td class="n">11.2%</td><td class="n">11.6%</td><td class="n">12.2%</td><td class="n"><span class="k">13.0%</span></td></tr>
+        <tr><td>Dealer viability — margin</td><td class="n">1.6%</td><td class="n">2.0%</td><td class="n">2.4%</td><td class="n"><span class="k">&gt;2.5%</span></td></tr>
+        <tr><td>Adoption — network onboarded</td><td class="n">—</td><td class="n">35%</td><td class="n">100%</td><td class="n">100%</td></tr>
+        <tr><td>Adoption — sustained weekly use</td><td class="n">34%</td><td class="n">30%</td><td class="n">80%</td><td class="n">95%</td></tr>
+        <tr><td>Experience — FCR · 24-hr contact</td><td class="n">66% · 68%</td><td class="n">72% · 90%</td><td class="n">77% · 98%</td><td class="n">80% · 98%</td></tr>
+        <tr><td>Experience — NPS</td><td class="n">24</td><td class="n">28</td><td class="n">32</td><td class="n">36</td></tr>
+        <tr><td>Loyalty — retention · repeat</td><td class="n">46% · 27%</td><td class="n">52% · 28%</td><td class="n">58% · 31%</td><td class="n">64% · 35%</td></tr>
+        <tr><td>AI value — initiatives passing gates</td><td class="n">12.5%</td><td class="n">100%</td><td class="n">100%</td><td class="n">100%</td></tr>
+      </table>
+      <div class="cap"><b>NPS 36 assumes</b> the benchmark drifts to ~42; we close two-thirds of a gap driven by experience, not product</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>The mechanism that replaces use-case funding</h3></div>
+      <ul>
+        <li>A single <span class="k">AI investment council</span> with dealer representation — one standing portfolio, fixed quarterly review, no side doors</li>
+        <li><span class="k">Owner, baseline and adoption target before rupee one</span> — the direct inverse of 43 / 36 / 34</li>
+        <li>A <span class="k">frontline route</span> from consultant and service advisor into the product backlog, not around it</li>
+        <li>Single-attribution ledger — one primary claim per outcome, verified quarterly</li>
+      </ul>
+      <div class="alert">If a gate fails, budget is <span class="k">recycled inside the envelope, not rolled over</span> — the discipline the last ₹225 cr never had.</div>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>What the jury will ask</h3></div>
+      <p><span class="k">Why will dealers adopt?</span> Because Year 1 pays them first, through the profit pool they already depend on.</p>
+      <p><span class="k">What if rivals move too?</span> We commit to <span class="k2">absolute share recovery of +1.8pp</span>, not to a rank we do not control. If No. 3 also grows, we still close the experience gap that caused the loss.</p>
+      <p><span class="k">Why only ₹250 cr?</span> Because a third of the fix is process, and process is nearly free.</p>
+      <div class="callout">Both share and dealer margin must move, or the programme has failed</div>
+    </div>
+  </div>
+  <div class="foot"><span>Governance: AI investment council · three funding gates · single-attribution ledger · quarterly verification</span><span>6 / 7</span></div>
+</section>
+
+<!-- ═══════════ 7 · ANNEXURE ═══════════ -->
+<section class="slide">
+  <div class="bandA"><div class="stripe"><i></i><i></i><i></i></div>
+    <h1>ANNEXURE — RECONCILIATION, RETURN BRIDGE AND SENSITIVITY</h1>
+    <div class="stripe r"><i></i><i></i><i></i></div></div>
+  <div class="bandB">Every number traces to a case exhibit or a clearly stated, consistently applied assumption</div>
+  <div class="hr"></div>
+  <div class="bandC" style="height:88px">
+    <div class="tab" style="width:200px">Share-to-unit bridge</div>
+    <div class="stats">
+      <div class="stat"><b>+0.9pp</b><span>Funnel conversion ≈ 45,000 units</span></div>
+      <div class="stat"><b>+0.6pp</b><span>Loyalty, care and referral ≈ 30,000</span></div>
+      <div class="stat"><b>+0.3pp</b><span>Vega-led EV and SUV capture ≈ 15,000</span></div>
+      <div class="stat"><b>+1.8pp</b><span>Year 3 run-rate ≈ 90,800 units</span></div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="body">
+    <div class="col">
+      <div class="sh"><div class="circ"><span>1</span></div><h3>Funnel reconciliation</h3></div>
+      <table>
+        <tr><th>Stage</th><th class="n">Rate</th><th class="n">Volume</th></tr>
+        <tr><td>Leads (72% digital)</td><td class="n">—</td><td class="n">24,00,000</td></tr>
+        <tr><td>Qualified</td><td class="n">78%</td><td class="n">18,72,000</td></tr>
+        <tr><td>Dealer contacted</td><td class="n">88%</td><td class="n">16,47,360</td></tr>
+        <tr><td>Showroom visit</td><td class="n">58%</td><td class="n">9,55,469</td></tr>
+        <tr><td>Test drive</td><td class="n">68%</td><td class="n">6,49,719</td></tr>
+        <tr><td>Booking</td><td class="n">38%</td><td class="n">2,46,893</td></tr>
+        <tr><td><b>Retail</b></td><td class="n">88%</td><td class="n"><b>2,17,266</b></td></tr>
+      </table>
+      <div class="cap"><b>Ties to</b> the case's ~2,17,000 attributable sales, or 38% of domestic volume</div>
+      <p><span class="k2">Out of scope by choice:</span> ~3.48 lakh untracked units — non-metro walk-in, referral and fleet, where share is holding.</p>
+    </div>
+    <div class="col" style="flex:1.1">
+      <div class="sh"><div class="circ"><span>2</span></div><h3>Return bridge and assumptions</h3></div>
+      <table>
+        <tr><th>Year</th><th class="n">Share</th><th class="n">Units vs base</th><th class="n">Contribution</th></tr>
+        <tr><td>Year 1</td><td class="n">11.6%</td><td class="n">20,180</td><td class="n">₹210 cr</td></tr>
+        <tr><td>Year 2</td><td class="n">12.2%</td><td class="n">50,450</td><td class="n">₹525 cr</td></tr>
+        <tr><td>Year 3</td><td class="n">13.0%</td><td class="n">90,800</td><td class="n">₹945 cr</td></tr>
+        <tr><td><b>Cumulative</b></td><td class="n">—</td><td class="n"><b>1,61,430</b></td><td class="n"><b>₹1,680 cr</b></td></tr>
+      </table>
+      <table style="margin-top:6px">
+        <tr><th>Assumption</th><th>Basis</th></tr>
+        <tr><td>Market ≈ 50.4 lakh units; 1pp ≈ 50,400</td><td>5,65,000 ÷ 11.2%</td></tr>
+        <tr><td>Contribution ₹1.04 lakh/unit</td><td>9% of ₹11.5 lakh realisation</td></tr>
+        <tr><td>Repeat purchase 27% → 35%</td><td>On owners entering the replacement cycle</td></tr>
+        <tr><td>Downstream rates constant per lever</td><td>Conservative — ignores compounding</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <div class="sh"><div class="circ"><span>3</span></div><h3>Sensitivity and risk</h3></div>
+      <p><span class="k">Market growth:</span> at 5% annual PV growth the Year 3 unit gain rises to ~1.05 lakh and contribution to ~₹1,090 cr. Flat market is the base case by choice.</p>
+      <p><span class="k">Competitive response:</span> if No. 3 grows to 13.6%, we reach 13.0% and remain No. 4 — the commitment is absolute share, not rank.</p>
+      <ul>
+        <li><span class="k2">Dealer resistance</span> → aftersales first, co-investment tiers, archetype waves</li>
+        <li><span class="k2">Data below plan</span> → metro-first bootstrap; agent scope narrows, it does not stop</li>
+        <li><span class="k2">Vega slips</span> → Year 2 rests on warm-end conversion, not the launch</li>
+      </ul>
+      <div class="alert">The largest risk is <span class="k">repeating the last programme</span> — many initiatives, no verified value. The council and the gates exist to prevent exactly that.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Sources: Accenture B-School Challenge S10 case exhibits; team analysis</span><span>7 / 7</span></div>
+</section>
+
+<div class="nav">
+  <button id="p" aria-label="Previous slide">‹</button><span id="c">1 / 7</span><button id="n" aria-label="Next slide">›</button>
+  <span>· arrow keys navigate · all type ≥ 12pt · one alert box per slide</span>
+</div>
+<script>
+const s=[...document.querySelectorAll('.slide')];let i=0;
+const go=k=>{s[i].classList.remove('active');i=(k+s.length)%s.length;s[i].classList.add('active');
+  document.getElementById('c').textContent=(i+1)+' / '+s.length;};
+document.getElementById('n').onclick=()=>go(i+1);
+document.getElementById('p').onclick=()=>go(i-1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1);});
+function fit(){const w=Math.min(window.innerWidth*0.97,1280),sc=w/1280;
+  s.forEach(el=>{el.style.transform=sc<1?`scale(${sc})`:'';el.style.marginBottom=sc<1?`${-720*(1-sc)}px`:'';});}
+addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>

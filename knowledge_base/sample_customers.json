@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0",
+  "description": "Synthetic customer records for the agent demo. All names and figures are fictional, matching the case's own convention. Records contain ONLY observable raw data (CRM notes, behavioral flags, contact logs) -- no pre-assigned signal label. The DETECT step must classify each record live using knowledge_base/customer_signal_taxonomy.json. Design rationale and case-grounding for each record is documented separately in scenario_design_notes.md so it does not leak into the agent's input.",
+  "customers": [
+    {
+      "customer_id": "C001", "name": "Rakesh Verma", "city": "Pune", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "digital_lead",
+      "dealer_id": "D014", "dealer_archetype": "champion",
+      "event_type": "test_drive_completed", "event_date": "2026-07-20",
+      "behavioral_flags": {"emi_calculator_uses_post_td": 3, "follow_up_attempts": 2, "follow_up_responses": 0},
+      "crm_notes": "TD done, liked it. asked emi calc 3x on app after. said will discuss at home. no answer 2 calls mon+tue."
+    },
+    {
+      "customer_id": "C002", "name": "Ananya Reddy", "city": "Chennai", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "walk_in",
+      "dealer_id": "D027", "dealer_archetype": "squeezed_performer",
+      "event_type": "test_drive_completed", "event_date": "2026-07-22",
+      "behavioral_flags": {"follow_up_attempts": 1, "follow_up_responses": 0},
+      "crm_notes": "TD gone well, but she said Solara's Q5 variant has panoroof at similar price, wanted to know if we're adding it. told her will check, no follow up yet."
+    },
+    {
+      "customer_id": "C003", "name": "Meera Krishnan", "city": "Bengaluru", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "EV", "channel_origin": "digital_lead",
+      "dealer_id": "D003", "dealer_archetype": "champion",
+      "event_type": "booking_placed_token_paid", "event_date": "2026-07-01",
+      "behavioral_flags": {"token_amount_inr": 25000, "days_since_booking": 24, "scheduled_automated_action_pending": "booking_completion_emi_offer_nudge"},
+      "crm_notes": "She called asking if token is refundable, said her husband lost his job last week, didn't want to say more. asked me not to call again about the car for now."
+    },
+    {
+      "customer_id": "C004", "name": "Vishal Nair", "city": "Mumbai", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "digital_lead",
+      "dealer_id": "D009", "dealer_archetype": "squeezed_performer",
+      "event_type": "test_drive_completed", "event_date": "2026-07-21",
+      "behavioral_flags": {"exchange_calculator_uses_post_td": 2, "follow_up_attempts": 1, "follow_up_responses": 1},
+      "crm_notes": "asked twice what we'd give for his 2018 diesel sedan on exchange, said market rate feels low, hasn't confirmed TD-to-booking."
+    },
+    {
+      "customer_id": "C005", "name": "Priya Iyer", "city": "Hyderabad", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "sedan", "channel_origin": "referral",
+      "dealer_id": "D041", "dealer_archetype": "willing_but_weak",
+      "event_type": "test_drive_completed", "event_date": "2026-07-15",
+      "behavioral_flags": {"follow_up_attempts": 3, "follow_up_responses": 0, "days_since_test_drive": 8},
+      "crm_notes": "no response after TD, dealer tried 3 times over 5 days, no answer, no voicemail reply."
+    },
+    {
+      "customer_id": "C006", "name": "Karthik Subramaniam", "city": "Jaipur", "city_tier": "other",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "digital_lead",
+      "dealer_id": "D052", "dealer_archetype": "champion",
+      "event_type": "test_drive_completed", "event_date": "2026-07-23",
+      "behavioral_flags": {"follow_up_attempts": 1, "follow_up_responses": 1},
+      "crm_notes": "Told the exec clearly 'please don't call me for now, I'll reach out when I'm ready' after TD. no further reason given."
+    },
+    {
+      "customer_id": "C007", "name": "Farah Sheikh", "city": "Ahmedabad", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "EV", "channel_origin": "digital_lead",
+      "dealer_id": "D061", "dealer_archetype": "champion",
+      "event_type": "test_drive_completed", "event_date": "2026-07-19",
+      "behavioral_flags": {"emi_calculator_uses_post_td": 1, "follow_up_attempts": 2, "follow_up_responses": 1},
+      "crm_notes": "asked about charging network vs Velicore's, also asked emi options once. seemed genuinely comparing both -- hasn't ruled us out."
+    },
+    {
+      "customer_id": "C008", "name": "Devika Menon", "city": "Kolkata", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "walk_in",
+      "dealer_id": "D033", "dealer_archetype": "squeezed_performer",
+      "event_type": "test_drive_completed", "event_date": "2026-07-18",
+      "behavioral_flags": {"exchange_calculator_uses_post_td": 1, "follow_up_attempts": 2, "follow_up_responses": 0},
+      "crm_notes": "asked about exchange value for her old hatchback once, then went quiet, dealer says she seemed price-sensitive overall."
+    },
+    {
+      "customer_id": "C009", "name": "Arjun Malhotra", "city": "Delhi NCR", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "digital_lead",
+      "dealer_id": "D002", "dealer_archetype": "willing_but_weak",
+      "event_type": "test_drive_completed", "event_date": "2026-08-05",
+      "behavioral_flags": {"emi_calculator_uses_post_td": 2, "follow_up_attempts": 1, "follow_up_responses": 0, "hours_since_test_drive": 22},
+      "crm_notes": "TD done, immediately went to compare Solara Q5 online per dealer, also checked emi calc twice after. no response to 1 call yet -- still within first day."
+    },
+    {
+      "customer_id": "C010", "name": "Sunita Rao", "city": "Surat", "city_tier": "other",
+      "journey_type": "warm_end_conversion", "product_segment": "hatchback", "channel_origin": "digital_lead",
+      "dealer_id": "D077", "dealer_archetype": "squeezed_performer",
+      "event_type": "test_drive_completed", "event_date": "2026-07-10",
+      "behavioral_flags": {"follow_up_attempts": 4, "follow_up_responses": 0, "days_since_test_drive": 14, "contact_info_verified": true},
+      "crm_notes": "completely unresponsive since TD, 4 attempts over 8 days, contact info double-checked and correct."
+    },
+    {
+      "customer_id": "C011", "name": "Neha Kapoor", "city": "Mumbai", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "SUV", "channel_origin": "n/a",
+      "dealer_id": "D009", "dealer_archetype": "champion", "vehicle_age_years": 3.5,
+      "event_type": "service_lapsed", "event_date": "2026-08-01",
+      "behavioral_flags": {"last_service_months_ago": 14, "app_engagement": "inactive_8mo", "prior_complaint_flag": false},
+      "crm_notes": "no complaints on file, just been lapsed, moved out of old routine after 2nd service."
+    },
+    {
+      "customer_id": "C012", "name": "Imran Qureshi", "city": "Bengaluru", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "SUV", "channel_origin": "n/a",
+      "dealer_id": "D003", "dealer_archetype": "squeezed_performer", "vehicle_age_years": 4,
+      "event_type": "service_lapsed", "event_date": "2026-07-28",
+      "behavioral_flags": {"last_service_months_ago": 20, "prior_complaint_flag": true},
+      "crm_notes": "last visit he complained about service wait time (3+ hrs), never came back after."
+    },
+    {
+      "customer_id": "C013", "name": "Ramesh Chandran", "city": "Chennai", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "sedan", "channel_origin": "n/a",
+      "dealer_id": "D027", "dealer_archetype": "willing_but_weak", "vehicle_age_years": 5,
+      "event_type": "service_lapsed", "event_date": "2026-07-30",
+      "behavioral_flags": {"last_service_months_ago": 9, "repeat_purchase_signal": "asked_dealer_about_new_SUV_pricing_last_visit"},
+      "crm_notes": "during last service, asked casually about new SUV lineup pricing, hasn't followed up since."
+    },
+    {
+      "customer_id": "C014", "name": "Lakshmi Pillai", "city": "Pune", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "EV", "channel_origin": "n/a",
+      "dealer_id": "D014", "dealer_archetype": "champion", "vehicle_age_years": 1.2,
+      "event_type": "service_support_open_issue", "event_date": "2026-08-02",
+      "behavioral_flags": {"last_service_months_ago": 6, "charging_support_calls": 2, "prior_complaint_flag": false},
+      "crm_notes": "called service twice about home-charger installation delay, no other issues, EV still under original warranty."
+    },
+    {
+      "customer_id": "C015", "name": "Zoya Ahmed", "city": "Hyderabad", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "SUV", "channel_origin": "n/a",
+      "dealer_id": "D041", "dealer_archetype": "squeezed_performer", "vehicle_age_years": 2,
+      "event_type": "service_lapsed", "event_date": "2026-08-03",
+      "behavioral_flags": {"last_service_months_ago": 15},
+      "crm_notes": "informed us on the reminder call that her mother passed away recently and she hasn't been able to focus on the car, asked us to check back after a couple months."
+    },
+    {
+      "customer_id": "C016", "name": "Aditya Ghosh", "city": "Kolkata", "city_tier": "top20",
+      "journey_type": "service_reactivation", "product_segment": "SUV", "channel_origin": "n/a",
+      "dealer_id": "D033", "dealer_archetype": "willing_but_weak", "vehicle_age_years": 2.5,
+      "event_type": "service_lapsed", "event_date": "2026-07-29",
+      "behavioral_flags": {"last_service_months_ago": 11, "app_engagement": "active_browses_service_booking"},
+      "crm_notes": "no issues, just been busy, still opens the app for service booking sometimes but hasn't completed one."
+    },
+    {
+      "customer_id": "C017", "name": "Sameer Joshi", "city": "Ahmedabad", "city_tier": "top20",
+      "journey_type": "warm_end_conversion", "product_segment": "SUV", "channel_origin": "digital_lead",
+      "dealer_id": "D061", "dealer_archetype": "willing_but_weak",
+      "event_type": "test_drive_completed", "event_date": "2026-07-24",
+      "behavioral_flags": {"follow_up_attempts": 2, "follow_up_responses": 1},
+      "crm_notes": "replied to one call saying 'still deciding, will call back', nothing more specific."
+    }
+  ]
+}

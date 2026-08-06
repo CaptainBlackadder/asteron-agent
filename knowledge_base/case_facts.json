@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "description": "Ground-truth facts from the Accenture B-School Challenge S10 case brief (Asteron Motors, all names/figures fictional per the case). Used to keep the agent's targets, thresholds and framing consistent with the case rather than the team's own derived strategy numbers (those live in asteron_deck_v4.html, not here).",
+  "company": {
+    "name": "Asteron Motors",
+    "headquarters": "India",
+    "fy2026_revenue_inr_crore": 74000,
+    "annual_vehicle_sales": 640000,
+    "domestic_sales": 565000,
+    "export_sales": 75000,
+    "manufacturing_sites": 6,
+    "dealer_principals": 620,
+    "outlets": 1050,
+    "cities_covered": 340,
+    "model_count": 11,
+    "ev_model_count": 3
+  },
+  "market_position": {
+    "current_share_pct": 11.2,
+    "share_three_years_ago_pct": 13.4,
+    "current_rank": 4,
+    "rank_three_years_ago": 3,
+    "top3_competitor_shares_pct": [21.6, 17.8, 13.1],
+    "share_loss_concentration": "sharpest in the 20 largest cities and fast-growing SUV segments",
+    "competitor_ai_adoption": "4 of 5 benchmarked major competitors use AI across several stages of the customer lifecycle"
+  },
+  "portfolio": {
+    "suv_share_of_domestic_sales_pct": 54,
+    "ev_share_of_domestic_sales_pct": 7,
+    "models_in_segment_top3": 2,
+    "product_quality_score_vs_competitor": {"asteron": 82, "competitor_benchmark": 81},
+    "ownership_experience_score_vs_competitor": {"asteron": 68, "competitor_benchmark": 78},
+    "project_vega": {
+      "description": "compact electric SUV",
+      "launch_months_out": 15,
+      "ev_ready_outlets": 420
+    }
+  },
+  "dealer_economics": {
+    "avg_operating_margin_pct_two_years_ago": 2.8,
+    "avg_operating_margin_pct_now": 1.6,
+    "pct_outlets_losing_money_on_new_vehicle_ops": 27,
+    "pct_dealer_operating_profit_from_service_and_parts": 52,
+    "marketing_cost_per_retail_sale_increase_pct": 31
+  },
+  "customer_acquisition_funnel": {
+    "annual_leads": 2400000,
+    "pct_leads_digital": 72,
+    "stage_conversion_pct": {
+      "qualified": 78,
+      "dealer_contacted": 88,
+      "showroom_visit": 58,
+      "test_drive": 68,
+      "booking": 38,
+      "booking_to_retail": 88
+    },
+    "attributable_retail_sales": 217000,
+    "pct_of_domestic_sales_attributable": 38,
+    "avg_first_response_time_hours": 16,
+    "pct_qualified_leads_not_contacted_within_24h": 32,
+    "note": "Balance of domestic sales comes through walk-ins, local enquiries, repeat/referral, and fleet sales not consistently tracked end to end."
+  },
+  "customer_and_loyalty": {
+    "annual_customer_care_interactions": 5800000,
+    "first_contact_resolution_pct": 66,
+    "industry_fcr_benchmark_note": "below industry benchmark",
+    "nps": 24,
+    "nps_competitor_benchmark": 39,
+    "pct_customers_servicing_at_authorized_workshop_by_year3": 46,
+    "repeat_purchase_pct": 27,
+    "pct_active_mobile_app_engagement_after_year1": "below 40"
+  },
+  "data_and_workflows": {
+    "pct_customers_with_unified_customer_id": 38,
+    "pct_customer_records_complete": 58,
+    "pct_customer_journeys_on_standardized_workflows": 34
+  },
+  "current_ai_activity": {
+    "spend_inr_crore_two_years": 225,
+    "initiative_count": 32,
+    "vendor_count": 11,
+    "initiatives_in_wider_use": 7,
+    "initiatives_with_verified_benefit": 4,
+    "pct_with_named_business_owner": 43,
+    "pct_with_documented_baseline": 36,
+    "pct_weekly_user_adoption": 34
+  },
+  "board_mandate": {
+    "annual_ai_budget_inr_crore": 250,
+    "budget_duration_years": 3,
+    "budget_source": "existing digital budget"
+  },
+  "case_tensions": [
+    "Product strength vs. customer experience",
+    "Immediate recovery vs. long-term readiness",
+    "Enterprise consistency vs. dealer autonomy",
+    "AI automation vs. human relationships",
+    "Multiple AI pilots vs. enterprise AI strategy"
+  ],
+  "case_realities": [
+    "Reality 1: Value is backloaded, and most organizations quit before it arrives.",
+    "Reality 2: Not everything needs AI.",
+    "Reality 3: AI cannot scale inside a pre-AI operating model."
+  ],
+  "success_measures": [
+    "dealer_adoption",
+    "customer_experience",
+    "market_recovery",
+    "customer_loyalty",
+    "dealer_viability",
+    "ai_value_and_trust"
+  ],
+  "agentic_ai_definition_per_case": "AI that can plan and carry out pre-approved steps across a workflow; people remain accountable for decisions that affect customers."
+}

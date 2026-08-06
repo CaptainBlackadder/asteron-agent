@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "description": "Defines the journeys the agent operates across. The pipeline in CLAUDE.md is journey-agnostic — it reads whatever journeys are listed here, so a later round can add a new journey (e.g. dealer_onboarding, complaint_triage) without changing the pipeline logic, only this file plus any new signal types in customer_signal_taxonomy.json.",
+  "shared_pipeline_steps": ["resolve", "detect", "assemble", "sequence", "gate", "act", "log"],
+  "journeys": [
+    {
+      "journey_code": "warm_end_conversion",
+      "name": "Test-Drive Warm-End Conversion",
+      "case_grounding": "62% of test-drivers never book (6.5 lakh/yr); test-drivers are the most expensive prospects Asteron owns, already carried through 5 funnel stages.",
+      "entry_criteria": "test drive completed, no booking recorded within the timing window",
+      "timing_window_hours": 48,
+      "timing_window_label": "golden 48 hours",
+      "act_step_name": "consultant_handoff",
+      "act_description": "Package the context pack and hand off to a human sales consultant, who owns the conversation, price, exchange, and close. The agent never negotiates or closes.",
+      "target_metric": {
+        "name": "test_drive_to_booking_rate",
+        "baseline_pct": 38,
+        "case_fact_ref": "case_facts.json customer_acquisition_funnel.stage_conversion_pct.booking"
+      }
+    },
+    {
+      "journey_code": "service_reactivation",
+      "name": "Service Reactivation",
+      "case_grounding": "Only 46% of customers still service at authorized workshops by year 3; service and parts are 52% of dealer operating profit — this is the pool Asteron owns outright, no dealer boundary to negotiate.",
+      "entry_criteria": "customer past the expected service-due interval, or lapsed from the authorized service network",
+      "timing_window_days": 14,
+      "timing_window_label": "service-due follow-up window",
+      "act_step_name": "reactivate",
+      "act_description": "Execute pre-approved low-risk actions (service reminders, scheduling nudges, status updates) directly, or augment with a context pack for a human service advisor when the record touches a human-only category (e.g. a prior unresolved complaint).",
+      "target_metric": {
+        "name": "service_retention_by_year3",
+        "baseline_pct": 46,
+        "case_fact_ref": "case_facts.json customer_and_loyalty.pct_customers_servicing_at_authorized_workshop_by_year3"
+      }
+    }
+  ],
+  "extensibility_note": "To add a journey for a later round: add an entry here with entry_criteria, timing window, act_step_name/description and target_metric; add any new signal codes it needs to customer_signal_taxonomy.json; add any new human-only categories it touches to decision_boundaries.json. CLAUDE.md's pipeline steps do not need to change."
+}

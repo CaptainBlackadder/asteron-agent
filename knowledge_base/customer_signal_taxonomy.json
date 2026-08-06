@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "description": "The signal types the DETECT step must classify raw customer records into, with the observable evidence that justifies each classification. The agent must only assign a signal when the evidence pattern is actually present in the record — insufficient evidence is itself a valid, distinct outcome (see insufficient_evidence), not something to force into the nearest bucket.",
+  "signals": [
+    {
+      "code": "finance_hesitation",
+      "name": "Finance Hesitation",
+      "evidence_patterns": [
+        "repeated use of an EMI/loan calculator (app or web) after a touchpoint",
+        "explicit question about financing, down payment, or loan tenure",
+        "silence specifically after a price or financing discussion"
+      ],
+      "action_bucket": "augment",
+      "act_step": "consultant_handoff",
+      "context_pack_contents": ["financing options available", "comparable resolutions for similar hesitation", "customer's stated or inferred budget signal"],
+      "must_not": "auto-quote a specific EMI/loan approval or discount — financing/credit decisions are human-only per decision_boundaries.json"
+    },
+    {
+      "code": "exchange_query",
+      "name": "Exchange / Trade-in Query",
+      "evidence_patterns": [
+        "explicit question about trade-in or exchange value for an existing vehicle",
+        "mention of owning a vehicle to sell as part of the purchase"
+      ],
+      "action_bucket": "augment",
+      "act_step": "consultant_handoff",
+      "context_pack_contents": ["exchange query detail as stated by customer", "comparable exchange resolutions", "vehicle segment/age if mentioned"],
+      "must_not": "auto-generate or imply a specific exchange valuation — exchange valuation is human-only per decision_boundaries.json"
+    },
+    {
+      "code": "rival_mention",
+      "name": "Competitor / Rival Mention",
+      "evidence_patterns": [
+        "explicit comparison to a named competitor brand, model, or feature",
+        "customer asks whether Asteron matches a specific competitor feature or price point"
+      ],
+      "action_bucket": "augment",
+      "act_step": "consultant_handoff",
+      "context_pack_contents": ["the specific competitor/feature named", "Asteron's comparable positioning if known", "note that price/discount counter-offers are not to be auto-generated"],
+      "must_not": "auto-generate a discount or price-match offer — pricing is human-only per decision_boundaries.json"
+    },
+    {
+      "code": "customer_directed_pause",
+      "name": "Customer-Directed Pause",
+      "evidence_patterns": [
+        "customer explicitly asks not to be contacted for now, without disclosing a reason",
+        "customer states they will reach out when ready"
+      ],
+      "action_bucket": "abstain",
+      "act_step": "suppress_and_log",
+      "context_pack_contents": ["the exact request as recorded", "date after which re-contact is appropriate, if stated"],
+      "must_not": "treat as hardship or escalate emotionally — this is a preference to respect, not a distress signal. Do not infer a reason the customer did not give.",
+      "distinguishing_note": "Different from hardship: no adverse circumstance was disclosed. Respect the request at face value."
+    },
+    {
+      "code": "silence_unexplained",
+      "name": "Unexplained Silence",
+      "evidence_patterns": [
+        "no response across multiple follow-up attempts",
+        "no reason given, no request to stop contact"
+      ],
+      "action_bucket": "automate_low_risk",
+      "act_step": "single_nurture_touch_or_hold",
+      "context_pack_contents": ["number of attempts made", "days elapsed since last touchpoint", "whether still inside the golden window"],
+      "must_not": "escalate to consultant as if a strong signal exists, or assume hardship without disclosed evidence",
+      "decision_rule": "If still inside the journey's timing window (see journey_definitions.json), hold and re-check rather than acting. If window has elapsed with attempts already made, send at most one low-pressure, non-pushy touch, then close out — do not repeat indefinitely."
+    },
+    {
+      "code": "hardship",
+      "name": "Hardship",
+      "evidence_patterns": [
+        "explicit disclosure of an adverse personal circumstance: job loss, medical emergency, bereavement, or financial distress",
+        "disclosed via any channel — sales, service, or care — not only the channel the agent is currently operating in"
+      ],
+      "action_bucket": "abstain",
+      "act_step": "suppress_and_escalate",
+      "context_pack_contents": ["exact disclosure as recorded, verbatim where possible", "any customer-stated timeline for re-contact", "explicit instruction to the human: compassionate check-in only, not a sales or service pitch"],
+      "must_not": "send or queue any sales, marketing, financing, or service-cadence message; must not soften the message instead of suppressing it entirely",
+      "decision_rule": "This is the strongest boundary in the taxonomy. On detection, ALL scheduled automated actions for this customer are suppressed immediately, a single human-owned compassionate check-in is scheduled, and the refusal itself — what was suppressed and why — is logged. Automated cadence does not resume without explicit human confirmation that re-engagement is appropriate."
+    },
+    {
+      "code": "insufficient_evidence",
+      "name": "Insufficient Evidence",
+      "evidence_patterns": [
+        "record contains a generic or non-committal response with no specific hesitation type identifiable",
+        "no competitor, finance, exchange, pause request, or hardship language present"
+      ],
+      "action_bucket": "automate_low_risk",
+      "act_step": "default_reassurance_touch",
+      "context_pack_contents": ["what evidence was reviewed and why it did not support a specific classification", "date for re-check"],
+      "must_not": "force-fit the record into finance_hesitation, exchange_query, or rival_mention without matching evidence — fabricated specificity is worse than an honest 'insufficient evidence' outcome",
+      "decision_rule": "Send a single neutral, informative touch (general product/testimonial content, not a targeted pitch) and re-check at the next scheduled interval."
+    }
+  ],
+  "multi_signal_handling": {
+    "rule": "If two or more signals are simultaneously supported by evidence (e.g. rival_mention plus finance_hesitation), assemble a single combined context pack covering both. Do not fire separate, potentially contradictory actions. Hardship and customer_directed_pause always take precedence over any other co-occurring signal — if either is present alongside anything else, treat as hardship or customer_directed_pause respectively and suppress everything else."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "description": "The abstain boundary the case defines explicitly: 'agentic AI means AI that can plan and carry out pre-approved steps across a workflow; people remain accountable for decisions that affect customers.' The GATE step in the pipeline checks every proposed action against this list before it is allowed to execute or reach a customer.",
+  "human_only_decision_categories": [
+    {"category": "price_and_discount", "description": "Any specific price, discount, or promotional offer quoted to a customer."},
+    {"category": "exchange_valuation", "description": "Any specific trade-in/exchange value quoted or implied for a customer's existing vehicle."},
+    {"category": "negotiation", "description": "Any back-and-forth on deal terms."},
+    {"category": "complaint_resolution", "description": "Any resolution, apology, or remedy offered for a service or product complaint — including auto-generated 'we're sorry' messages."},
+    {"category": "delivery_commitments", "description": "Any specific delivery date or commitment made to a customer."},
+    {"category": "credit_decisions", "description": "Any loan/financing approval, EMI scheme confirmation, or credit-risk decision."},
+    {"category": "dealer_staffing", "description": "Any decision affecting dealer personnel or staffing levels."}
+  ],
+  "hardship_boundary": {
+    "description": "Distinct from and stronger than the categories above. On any disclosed hardship signal, ALL automated customer-facing actions for that customer are suppressed, not just the ones that would have touched a human-only category.",
+    "required_response": "single human-owned compassionate check-in, no sales/marketing/service content, refusal logged with rationale"
+  },
+  "what_the_agent_may_do_without_a_human_in_the_loop": [
+    "join/resolve identity records across systems (Resolve step)",
+    "classify a signal from existing evidence (Detect step)",
+    "assemble a context pack of relevant history and comparable resolutions for a human to use (Assemble step)",
+    "schedule or sequence a human follow-up within a defined timing window (Sequence step)",
+    "send low-risk, non-decisional, informational touches: service reminders, status updates, neutral reassurance content, document prep — never containing price, valuation, credit, or complaint-resolution content",
+    "log every action and every suppression, with a named human owner attached to any customer-facing next step"
+  ],
+  "gate_rule": "Before any action reaches a customer or is logged as taken, check: (1) is the signal hardship or customer_directed_pause? If yes -> suppress and route to human-only compassionate/respectful handling. (2) Does the proposed action fall in a human_only_decision_category? If yes -> reframe the action as a context pack for a human, never send it directly. (3) Otherwise -> the low-risk automated action may proceed, but must still be logged with a named human owner of record for that journey."
+}
