@@ -30,6 +30,14 @@ The decision contract — the seven-step loop, the signal-classification discipl
 boundary check, and the ledger schema — lives in [`SKILLS.md`](SKILLS.md). **Read it before
 processing any customer.**
 
+**Relationship to `demo_app/`:** this file and `SKILLS.md` are the *design contract* — the
+reasoning a human (or Claude Code) follows and can explain to a judge. `demo_app/index.html` is
+a separate, working implementation of the same seven-step logic as literal, auditable JavaScript
+(regex/keyword guardrails, not prompted rules), built to `Asteron_Agent_Build_Spec.md`. That app
+— not this pipeline — is the thing that gets screen-recorded for the submission's mandatory demo
+link. If the two ever disagree, `SKILLS.md` is the source of truth; `demo_app/` should be updated
+to match.
+
 ---
 
 ## Section 2 — How to Run
@@ -146,4 +154,8 @@ record**, journey-agnostically (the journey only changes entry criteria, timing 
 | `templates/ledger_summary.md` | Aggregate run summary format. |
 | `outputs/` | Generated, timestamped run traces. |
 | `1785563478340_...pdf` | The original case brief (source of all case facts). |
-| `asteron_deck_v4.html` | The strategy deck this agent is the working demo for. |
+| `asteron_deck_v4.html` | Earlier draft of the strategy deck (7 slides, superseded by `Asteron_Accenture_S10_Final.pptx`). |
+| `Asteron_Accenture_S10_Final.pptx` | The current submission deck. |
+| `Asteron_Speaker_Notes.md` | Per-slide delivery notes and the arithmetic behind every number in the deck — read before Q&A. |
+| `Asteron_Agent_Build_Spec.md` | The buildable spec `demo_app/` implements — data model, 7-step workflow, guardrails-as-code, the two mandatory demo runs. |
+| `demo_app/` | The actual working, screen-recordable prototype — see `demo_app/README.md`. |
