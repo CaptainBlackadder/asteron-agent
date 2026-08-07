@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Asteron Agent — Stakeholder Portal</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="roleOverlay">
+  <div class="roleCard-wrap">
+    <h2>Who's signing in?</h2>
+    <p>This changes what's in your queue and how the assistant talks to you — not what the agent
+       is allowed to do. The guardrails are the same for everyone.</p>
+    <div class="roleGrid" id="roleGrid"></div>
+  </div>
+</div>
+
+<header>
+  <div>
+    <h1>ASTERON AGENT — STAKEHOLDER PORTAL</h1>
+    <div class="sub">One resolved identity, two journeys, one human gate · demo clock fixed at 07 Aug 2026, 10:00 IST</div>
+  </div>
+  <div>
+    <span id="roleBadge" onclick="showRoleOverlay()">choose a role</span>
+    <span id="selftest">running self-tests…</span>
+    <span id="testDetails" onclick="toggleTestPanel()">details</span>
+  </div>
+</header>
+
+<main>
+  <div class="panel" id="queuePanel">
+    <h2>Event Queue</h2>
+    <button class="demo-btn" onclick="startRun('TD003')">▶ Demo Run 1 — Happy Path
+      <small>Test drive → exchange-value concern → consultant brief</small></button>
+    <button class="demo-btn" onclick="startRun('TD011')">▶ Demo Run 2 — Refusal
+      <small>Hardship disclosed → agent stops, routes to a person</small></button>
+    <button class="demo-btn" onclick="startRun('SR-N1', true)">▶ Demo Run 3 — Reactivation
+      <small>Service-due, no signal → advisory + slot</small></button>
+    <button id="resetBtn" onclick="resetLedger()">Reset ledger</button>
+    <div class="queue-list" id="queueList"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Agent Trace — 7 Steps</h2>
+    <div id="trace"><div class="empty">Click a record in the Event Queue, or a Demo Run button, to start.</div></div>
+    <div id="controls" style="display:none">
+      <button id="nextBtn" onclick="revealNext()">Next step ▶</button>
+      <button id="autoBtn" class="ghost" onclick="autoPlay()">Auto-play ▶▶</button>
+    </div>
+  </div>
+
+  <div class="panel" id="inbox">
+    <h2>Consultant Inbox / Escalation</h2>
+    <div class="empty">Nothing yet — run a record to populate this panel.</div>
+  </div>
+</main>
+
+<div id="ledgerWrap">
+  <h2>Value Ledger — append-only, single-attribution (most recent first)</h2>
+  <table>
+    <thead><tr><th>Timestamp</th><th>Customer</th><th>Journey</th><th>Step reached</th><th>Outcome</th><th>Owner</th></tr></thead>
+    <tbody id="ledgerBody"><tr><td colspan="6" class="empty">No actions logged yet.</td></tr></tbody>
+  </table>
+</div>
+
+<footer>
+  Same decision engine as demo_app/ (pipeline.js) · guardrails are plain functions, not prompts · the chat assistant explains decisions, it never makes them
+  · <span style="cursor:pointer;text-decoration:underline" onclick="runFullRegression()">run full regression, all records</span>
+</footer>
+
+<div id="testPanel"></div>
+<div id="regressionPanel" style="display:none;margin:0 14px 20px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px;font-size:12px;line-height:1.6"></div>
+
+<button id="chatToggle" onclick="toggleChat()">💬 Ask the Agent</button>
+<div id="chatDrawer">
+  <div id="chatHead"><div><b>Ask the Agent</b><br><span id="chatRoleLine">no role selected</span></div><span id="chatClose" onclick="toggleChat()">✕</span></div>
+  <div id="chatMessages"></div>
+  <div id="chatOfflineNote" style="display:none">Chat needs this app deployed with an API key configured — see README_DEPLOY.md. Everything else on this page works fully offline.</div>
+  <div id="chatInputRow">
+    <input id="chatInput" type="text" placeholder="Ask about a customer, the ledger, or try to break a rule…" onkeydown="if(event.key==='Enter') sendChat()">
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<script src="pipeline.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

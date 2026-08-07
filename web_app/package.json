@@ -1,0 +1,12 @@
+{
+  "name": "asteron-agent-stakeholder-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hosted, role-based version of the Asteron Agent demo. Static frontend + one Vercel serverless function for the chat layer. The 7-step decision engine (pipeline.js) is unchanged from demo_app/ and makes no LLM calls.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0"
+  }
+}
