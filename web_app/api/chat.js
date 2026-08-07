@@ -106,6 +106,13 @@ module.exports = async function handler(req, res) {
     });
   } catch (err) {
     console.error('Anthropic API error:', err);
-    res.status(502).json({ error: 'The LLM call failed. Check ANTHROPIC_API_KEY and ANTHROPIC_MODEL in this deployment\'s environment variables.' });
+    // Surface the SDK's own error text directly — this is the fastest way to
+    // tell an invalid API key apart from an unavailable model name apart from
+    // a billing/credits issue, without needing dashboard log access.
+    const detail = (err && err.error && err.error.error && err.error.error.message) ? err.error.error.message
+      : (err && err.message) ? err.message
+      : 'Unknown error';
+    const status = err && err.status ? err.status : '';
+    res.status(502).json({ error: `The LLM call failed${status ? ' (HTTP ' + status + ')' : ''}: ${detail}` });
   }
 };
