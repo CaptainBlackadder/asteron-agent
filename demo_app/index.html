@@ -129,9 +129,11 @@ footer{text-align:center;color:var(--cap);font-size:11px;padding:10px 0 20px}
 
 <footer>
   Built per Asteron_Agent_Build_Spec.md · guardrails are plain functions, not prompts — see &lt;script&gt; source · no API key, no backend, runs entirely client-side
+  · <span style="cursor:pointer;text-decoration:underline" onclick="runFullRegression()">run full regression, all records</span>
 </footer>
 
 <div id="testPanel"></div>
+<div id="regressionPanel" style="display:none;margin:0 14px 20px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px;font-size:12px;line-height:1.6"></div>
 
 <script>
 /* =========================================================================
@@ -772,6 +774,42 @@ function renderInboxFinal(result){
 function toggleTestPanel(){
   const p = document.getElementById('testPanel');
   p.style.display = p.style.display === 'block' ? 'none' : 'block';
+}
+
+/* =========================================================================
+   FULL REGRESSION HARNESS (diagnostic, not part of the 3-panel demo).
+   Runs every record in the dataset through the real pipeline functions
+   against a temporary, throwaway ledger (so it never pollutes the actual
+   demo session's Value Ledger), then restores the real ledger untouched.
+   ========================================================================= */
+function runFullRegression(){
+  const savedLedger = LEDGER;
+  LEDGER = [];
+  const rows = [];
+  TEST_DRIVES.forEach(td=>{
+    const cust = CUSTOMERS.find(c=>c.mobile_number===td.mobile_number);
+    const r = runConversion(td.test_drive_id);
+    rows.push({id:td.test_drive_id, name:cust.name, journey:'conversion', outcome:r.outcome, owner:r.owner||'—',
+      detail: r.outcome==='escalated_hardship' ? `hardship: "${r.hardship.matchedPhrase}"` :
+              r.brief ? `reason: ${r.brief.reason}${r.seq && !r.seq.withinWindow ? ' (slot OUTSIDE 48h window)':''}` : ''});
+  });
+  SERVICE_RECORDS.forEach(sr=>{
+    const cust = CUSTOMERS.find(c=>c.mobile_number===sr.mobile_number);
+    const r = runReactivation(sr.service_id);
+    rows.push({id:sr.service_id, name:cust.name, journey:'reactivation', outcome:r.outcome, owner:r.owner||'—',
+      detail: r.outcome==='escalated_hardship' ? `hardship: "${r.hardship.matchedPhrase}"` :
+              r.seq && !r.seq.withinWindow ? 'slot OUTSIDE 48h window' : ''});
+  });
+  LEDGER = savedLedger;
+  renderLedger();
+  const counts = rows.reduce((acc,r)=>{acc[r.outcome]=(acc[r.outcome]||0)+1; return acc;},{});
+  const panel = document.getElementById('regressionPanel');
+  panel.style.display = 'block';
+  panel.innerHTML = `<b>Full regression — ${rows.length} records, real pipeline functions, throwaway ledger</b><br>
+    Outcome counts: ${Object.entries(counts).map(([k,v])=>`${k}: ${v}`).join(' · ')}<br><br>` +
+    rows.map(r=>`<b>${r.id}</b> — ${r.name} (${r.journey}): <b>${r.outcome}</b> — owner: ${r.owner}${r.detail? ' — '+r.detail : ''}`).join('<br>');
+  console.log('Full regression:', rows);
+  return rows;
 }
 
 /* =========================================================================

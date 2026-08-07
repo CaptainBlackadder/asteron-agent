@@ -63,6 +63,10 @@ for each classification — say this proactively if asked, rather than let it be
 - `README.md` — this file.
 - `NARRATION.md` — one paragraph per demo run, written so a teammate who didn't build this can
   present it cold, per build spec Section 7.6.
+- `TEST_PLAN.md` — every record in the dataset run through the real pipeline functions, with
+  actual (not predicted) outcomes, plus the 13 automated unit tests and 7 live behavioral checks.
+- `PANEL_DEMO_GUIDE.md` — run-of-show, anticipated judge questions with answers, and a
+  pre-demo checklist.
 
 ## Recording the actual demo
 
