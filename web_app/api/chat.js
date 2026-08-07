@@ -113,6 +113,24 @@ module.exports = async function handler(req, res) {
       : (err && err.message) ? err.message
       : 'Unknown error';
     const status = err && err.status ? err.status : '';
-    res.status(502).json({ error: `The LLM call failed${status ? ' (HTTP ' + status + ')' : ''}: ${detail}` });
+
+    // FALLBACK — the live LLM call failed (commonly: no API credit on the
+    // deployment's Anthropic account). Rather than dead-end the chat with a
+    // raw error, hand back the deterministic record we already assembled
+    // above (groundingContext). This is not an LLM-generated explanation —
+    // it's the same on-file data a human would read — so it's labeled as
+    // such rather than presented as if the assistant answered it.
+    const fallbackBody = groundingContext
+      ? `Live AI explanation is unavailable right now (${detail}), so here's the record on file instead — no generated summary, just what's stored:\n\n${groundingContext}`
+      : `Live AI explanation is unavailable right now (${detail}). The deterministic parts of this app — Demo Runs 1–3 and the boundary-refusal check above — don't need the API and still work. Ask about a specific customer by name and I can show you their record directly even without the live model.`;
+    const filteredFallback = P.currencyCommitmentFilter(fallbackBody);
+
+    res.status(200).json({
+      reply: filteredFallback.text,
+      guardrail_intercepted: !filteredFallback.clean,
+      blocked_pre_llm: false,
+      fallback: true,
+      fallback_reason: `The LLM call failed${status ? ' (HTTP ' + status + ')' : ''}: ${detail}`,
+    });
   }
 };

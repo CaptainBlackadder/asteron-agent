@@ -278,6 +278,9 @@ async function sendChat(){
     if (data.guardrail_intercepted){
       addChatMessage('system', '⚠ The pricing/commitment guardrail redacted part of that reply before you saw it.');
     }
+    if (data.fallback){
+      addChatMessage('system', 'ℹ Live AI explanation unavailable — that reply is the on-file record, not a generated answer. (' + data.fallback_reason + ')');
+    }
     chatHistory.push({role:'user', content:message});
     chatHistory.push({role:'assistant', content:data.reply});
   } catch (e){
